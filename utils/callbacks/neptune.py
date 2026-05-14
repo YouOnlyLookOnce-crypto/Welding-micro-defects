@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 from ultralytics.utils import LOGGER, SETTINGS, TESTS_RUNNING
 
@@ -59,7 +59,7 @@ def on_pretrain_routine_start(trainer):
         )
         run["Configuration/Hyperparameters"] = {k: "" if v is None else v for k, v in vars(trainer.args).items()}
     except Exception as e:
-        LOGGER.warning(f"WARNING ⚠️ NeptuneAI installed but not initialized correctly, not logging this run. {e}")
+        LOGGER.warning(f"WARNING NeptuneAI installed but not initialized correctly, not logging this run. {e}")
 
 
 def on_train_epoch_end(trainer):
