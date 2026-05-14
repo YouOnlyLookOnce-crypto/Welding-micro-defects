@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 import json
 
@@ -178,8 +178,8 @@ class ParkingManagement(BaseSolution):
 
         self.json_file = self.CFG["json_file"]  # Load JSON data
         if self.json_file is None:
-            LOGGER.warning("❌ json_file argument missing. Parking region details required.")
-            raise ValueError("❌ Json file path can not be empty")
+            LOGGER.warning(" json_file argument missing. Parking region details required.")
+            raise ValueError(" Json file path can not be empty")
 
         with open(self.json_file) as f:
             self.json = json.load(f)
