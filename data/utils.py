@@ -671,4 +671,4 @@ def save_dataset_cache_file(prefix, path, x, version):
         path.with_suffix(".cache.npy").rename(path)  # remove .npy suffix
         LOGGER.info(f"{prefix}New cache created: {path}")
     else:
-        LOGGER.warning(f"{prefix}WARNING ⚠️ Cache directory {path.parent} is not writeable, cache not saved.")
+        LOGGER.warning(f"{prefix}WARNING Cache directory {path.parent} is not writeable, cache not saved.")
