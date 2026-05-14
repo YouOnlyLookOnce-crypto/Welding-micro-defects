@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 import json
 from time import time
@@ -72,7 +72,7 @@ def on_train_end(trainer):
             final=True,
         )
         session.alive = False  # stop heartbeats
-        LOGGER.info(f"{PREFIX}Done ✅\n" f"{PREFIX}View model at {session.model_url} 🚀")
+        LOGGER.info(f"{PREFIX}Done \n" f"{PREFIX}View model at {session.model_url} ")
 
 
 def on_train_start(trainer):
