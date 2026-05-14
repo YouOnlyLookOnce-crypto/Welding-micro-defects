@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 import contextlib
 import pickle
@@ -190,7 +190,7 @@ class BaseModel(nn.Module):
     def _predict_augment(self, x):
         """Perform augmentations on input image x and return augmented inference."""
         LOGGER.warning(
-            f"WARNING ⚠️ {self.__class__.__name__} does not support 'augment=True' prediction. "
+            f"WARNING {self.__class__.__name__} does not support 'augment=True' prediction. "
             f"Reverting to single-scale prediction."
         )
         return self._predict_once(x)
@@ -335,7 +335,7 @@ class DetectionModel(BaseModel):
         self.yaml = cfg if isinstance(cfg, dict) else yaml_model_load(cfg)  # cfg dict
         if self.yaml["backbone"][0][2] == "Silence":
             LOGGER.warning(
-                "WARNING ⚠️ YOLOv9 `Silence` module is deprecated in favor of nn.Identity. "
+                "WARNING YOLOv9 `Silence` module is deprecated in favor of nn.Identity. "
                 "Please delete local *.pt file and re-download the latest model checkpoint."
             )
             self.yaml["backbone"][0][2] = "nn.Identity"
@@ -377,7 +377,7 @@ class DetectionModel(BaseModel):
     def _predict_augment(self, x):
         """Perform augmentations on input image x and return augmented inference and train outputs."""
         if getattr(self, "end2end", False) or self.__class__.__name__ != "DetectionModel":
-            LOGGER.warning("WARNING ⚠️ Model does not support 'augment=True', reverting to single-scale prediction.")
+            LOGGER.warning("WARNING Model does not support 'augment=True', reverting to single-scale prediction.")
             return self._predict_once(x)
         img_size = x.shape[-2:]  # height, width
         s = [1, 0.83, 0.67]  # scales
@@ -869,7 +869,7 @@ def torch_safe_load(weight, safe_only=False):
         if e.name == "models":
             raise TypeError(
                 emojis(
-                    f"ERROR ❌️ {weight} appears to be an Ultralytics YOLOv5 model originally trained "
+                    f"ERROR {weight} appears to be an Ultralytics YOLOv5 model originally trained "
                     f"with https://github.com/ultralytics/yolov5.\nThis model is NOT forwards compatible with "
                     f"YOLOv8 at https://github.com/ultralytics/ultralytics."
                     f"\nRecommend fixes are to train a new model using the latest 'ultralytics' package or to "
@@ -877,7 +877,7 @@ def torch_safe_load(weight, safe_only=False):
                 )
             ) from e
         LOGGER.warning(
-            f"WARNING ⚠️ {weight} appears to require '{e.name}', which is not in Ultralytics requirements."
+            f"WARNING {weight} appears to require '{e.name}', which is not in Ultralytics requirements."
             f"\nAutoInstall will run now for '{e.name}' but this feature will be removed in the future."
             f"\nRecommend fixes are to train a new model using the latest 'ultralytics' package or to "
             f"run a command with an official Ultralytics model, i.e. 'yolo predict model=yolov8n.pt'"
@@ -888,7 +888,7 @@ def torch_safe_load(weight, safe_only=False):
     if not isinstance(ckpt, dict):
         # File is likely a YOLO instance saved with i.e. torch.save(model, "saved_model.pt")
         LOGGER.warning(
-            f"WARNING ⚠️ The file '{weight}' appears to be improperly saved or formatted. "
+            f"WARNING The file '{weight}' appears to be improperly saved or formatted. "
             f"For optimal results, use model.save('filename.pt') to correctly save YOLO models."
         )
         ckpt = {"model": ckpt.model}
@@ -973,7 +973,7 @@ def parse_model(d, ch, verbose=True):  # model_dict, input_channels(3)
         scale = d.get("scale")
         if not scale:
             scale = tuple(scales.keys())[0]
-            LOGGER.warning(f"WARNING ⚠️ no model scale passed. Assuming scale='{scale}'.")
+            LOGGER.warning(f"WARNING no model scale passed. Assuming scale='{scale}'.")
         depth, width, max_channels = scales[scale]
 
     if act:
@@ -1189,7 +1189,7 @@ def yaml_model_load(path):
     path = Path(path)
     if path.stem in (f"yolov{d}{x}6" for x in "nsmlx" for d in (5, 8)):
         new_stem = re.sub(r"(\d+)([nslmx])6(.+)?$", r"\1\2-p6\3", path.stem)
-        LOGGER.warning(f"WARNING ⚠️ Ultralytics YOLO P6 models now use -p6 suffix. Renaming {path.stem} to {new_stem}.")
+        LOGGER.warning(f"WARNING Ultralytics YOLO P6 models now use -p6 suffix. Renaming {path.stem} to {new_stem}.")
         path = path.with_name(new_stem + path.suffix)
 
     unified_path = re.sub(r"(\d+)([nslmx])(.+)?$", r"\1\3", str(path))  # i.e. yolov8x.yaml -> yolov8.yaml
@@ -1286,7 +1286,7 @@ def guess_model_task(model):
 
     # Unable to determine task from model
     LOGGER.warning(
-        "WARNING ⚠️ Unable to automatically guess model task, assuming 'task=detect'. "
+        "WARNING Unable to automatically guess model task, assuming 'task=detect'. "
         "Explicitly define task for your model, i.e. 'task=detect', 'segment', 'classify','pose' or 'obb'."
     )
     return "detect"  # assume detect
