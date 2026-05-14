@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 from itertools import cycle
 
@@ -118,7 +118,7 @@ class Analytics(BaseSolution):
                     self.clswise_count[self.names[int(cls)]] = 1
             im0 = self.update_graph(frame_number=frame_number, count_dict=self.clswise_count, plot=self.type)
         else:
-            raise ModuleNotFoundError(f"{self.type} chart is not supported ❌")
+            raise ModuleNotFoundError(f"{self.type} chart is not supported ")
         return im0
 
     def update_graph(self, frame_number, count_dict=None, plot="line"):
