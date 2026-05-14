@@ -53,5 +53,5 @@ if __name__ == '__main__':
 best.pt:Optimal weights
 last.pt:Final epoch weights
 results.png:Curves of loss, mAP, precision and recal
-
+# Partial basic code modules in this work were assisted by AI programming tools, including cfg/__init__.py, data/dataset.py, the engine module, hub/auth.py, models/yolo/detect/train.py, nn/tasks.py, solutions/solutions.py, trackers/byte_tracker.py and utils/tuner.py. All code has subsequently undergone rigorous inspection, testing and revision to ensure stable execution.
 
