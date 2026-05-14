@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 import glob
 import inspect
@@ -96,7 +96,7 @@ def parse_version(version="0.0.0") -> tuple:
     try:
         return tuple(map(int, re.findall(r"\d+", version)[:3]))  # '2.0.1+cpu' -> (2, 0, 1)
     except Exception as e:
-        LOGGER.warning(f"WARNING ⚠️ failure for parse_version({version}), returning (0, 0, 0): {e}")
+        LOGGER.warning(f"WARNING failure for parse_version({version}), returning (0, 0, 0): {e}")
         return 0, 0, 0
 
 
@@ -156,14 +156,14 @@ def check_imgsz(imgsz, stride=32, min_dim=1, max_dim=2, floor=0):
         )
         if max_dim != 1:
             raise ValueError(f"imgsz={imgsz} is not a valid image size. {msg}")
-        LOGGER.warning(f"WARNING ⚠️ updating to 'imgsz={max(imgsz)}'. {msg}")
+        LOGGER.warning(f"WARNING updating to 'imgsz={max(imgsz)}'. {msg}")
         imgsz = [max(imgsz)]
     # Make image size a multiple of the stride
     sz = [max(math.ceil(x / stride) * stride, floor) for x in imgsz]
 
     # Print warning message if image size was updated
     if sz != imgsz:
-        LOGGER.warning(f"WARNING ⚠️ imgsz={imgsz} must be multiple of max stride {stride}, updating to {sz}")
+        LOGGER.warning(f"WARNING imgsz={imgsz} must be multiple of max stride {stride}, updating to {sz}")
 
     # Add missing dimensions if necessary
     sz = [sz[0], sz[0]] if min_dim == 2 and len(sz) == 1 else sz[0] if min_dim == 1 and len(sz) == 1 else sz
@@ -209,7 +209,7 @@ def check_version(
         ```
     """
     if not current:  # if current is '' or None
-        LOGGER.warning(f"WARNING ⚠️ invalid check_version({current}, {required}) requested, please check values.")
+        LOGGER.warning(f"WARNING invalid check_version({current}, {required}) requested, please check values.")
         return True
     elif not current[0].isdigit():  # current is package name rather than version string, i.e. current='ultralytics'
         try:
@@ -217,7 +217,7 @@ def check_version(
             current = metadata.version(current)  # get version string from package name
         except metadata.PackageNotFoundError as e:
             if hard:
-                raise ModuleNotFoundError(emojis(f"WARNING ⚠️ {current} package is required but not installed")) from e
+                raise ModuleNotFoundError(emojis(f"WARNING {current} package is required but not installed")) from e
             else:
                 return False
 
@@ -253,7 +253,7 @@ def check_version(
         elif op == "<" and not (c < v):
             result = False
     if not result:
-        warning = f"WARNING ⚠️ {name}{op}{version} is required, but {name}=={current} is currently installed {msg}"
+        warning = f"WARNING {name}{op}{version} is required, but {name}=={current} is currently installed {msg}"
         if hard:
             raise ModuleNotFoundError(emojis(warning))  # assert version requirements met
         if verbose:
@@ -294,7 +294,7 @@ def check_pip_update_available():
             latest = check_latest_pypi_version()
             if check_version(__version__, f"<{latest}"):  # check if current version is < latest version
                 LOGGER.info(
-                    f"New https://pypi.org/project/ultralytics/{latest} available 😃 "
+                    f"New https://pypi.org/project/ultralytics/{latest} available "
                     f"Update with 'pip install -U ultralytics'"
                 )
                 return True
@@ -409,11 +409,11 @@ def check_requirements(requirements=ROOT.parent / "requirements.txt", exclude=()
                 LOGGER.info(attempt_install(s, cmds))
                 dt = time.time() - t
                 LOGGER.info(
-                    f"{prefix} AutoUpdate success ✅ {dt:.1f}s, installed {n} package{'s' * (n > 1)}: {pkgs}\n"
-                    f"{prefix} ⚠️ {colorstr('bold', 'Restart runtime or rerun command for updates to take effect')}\n"
+                    f"{prefix} AutoUpdate success {dt:.1f}s, installed {n} package{'s' * (n > 1)}: {pkgs}\n"
+                    f"{prefix} {colorstr('bold', 'Restart runtime or rerun command for updates to take effect')}\n"
                 )
             except Exception as e:
-                LOGGER.warning(f"{prefix} ❌ {e}")
+                LOGGER.warning(f"{prefix} {e}")
                 return False
         else:
             return False
@@ -450,7 +450,7 @@ def check_torchvision():
         v_torchvision = ".".join(TORCHVISION_VERSION.split("+")[0].split(".")[:2])
         if all(v_torchvision != v for v in compatible_versions):
             print(
-                f"WARNING ⚠️ torchvision=={v_torchvision} is incompatible with torch=={v_torch}.\n"
+                f"WARNING torchvision=={v_torchvision} is incompatible with torch=={v_torch}.\n"
                 f"Run 'pip install torchvision=={compatible_versions[0]}' to fix torchvision or "
                 "'pip install -U torch torchvision' to update both.\n"
                 "For a full compatibility table see https://github.com/pytorch/vision#installation"
@@ -480,7 +480,7 @@ def check_yolov5u_filename(file: str, verbose: bool = True):
             file = re.sub(r"(.*yolov3(|-tiny|-spp))\.pt", "\\1u.pt", file)  # i.e. yolov3-spp.pt -> yolov3-sppu.pt
             if file != original_file and verbose:
                 LOGGER.info(
-                    f"PRO TIP 💡 Replace 'model={original_file}' with new 'model={file}'.\nYOLOv5 'u' models are "
+                    f"PRO TIP Replace 'model={original_file}' with new 'model={file}'.\nYOLOv5 'u' models are "
                     f"trained with https://github.com/ultralytics/ultralytics and feature improved performance vs "
                     f"standard YOLOv5 models trained with https://github.com/ultralytics/yolov5.\n"
                 )
@@ -558,7 +558,7 @@ def check_imshow(warn=False):
         return True
     except Exception as e:
         if warn:
-            LOGGER.warning(f"WARNING ⚠️ Environment does not support cv2.imshow() or PIL Image.show()\n{e}")
+            LOGGER.warning(f"WARNING Environment does not support cv2.imshow() or PIL Image.show()\n{e}")
         return False
 
 
@@ -587,7 +587,7 @@ def check_yolo(verbose=True, device=""):
         s = ""
 
     select_device(device=device, newline=False)
-    LOGGER.info(f"Setup complete ✅ {s}")
+    LOGGER.info(f"Setup complete {s}")
 
 
 def collect_system_info():
@@ -621,10 +621,10 @@ def collect_system_info():
     for r in parse_requirements(package="ultralytics"):
         try:
             current = metadata.version(r.name)
-            is_met = "✅ " if check_version(current, str(r.specifier), name=r.name, hard=True) else "❌ "
+            is_met =  if check_version(current, str(r.specifier), name=r.name, hard=True) else " "
         except metadata.PackageNotFoundError:
             current = "(not installed)"
-            is_met = "❌ "
+            is_met = " "
         package_info[r.name] = f"{is_met}{current}{r.specifier}"
         LOGGER.info(f"{r.name:<20}{package_info[r.name]}")
 
@@ -690,19 +690,19 @@ def check_amp(model):
         from ultralytics import YOLO
 
         assert amp_allclose(YOLO("yolo11n.pt"), im)
-        LOGGER.info(f"{prefix}checks passed ✅")
+        LOGGER.info(f"{prefix}checks passed ")
     except ConnectionError:
         LOGGER.warning(
-            f"{prefix}checks skipped ⚠️. " f"Offline and unable to download YOLO11n for AMP checks. {warning_msg}"
+            f"{prefix}checks skipped. " f"Offline and unable to download YOLO11n for AMP checks. {warning_msg}"
         )
     except (AttributeError, ModuleNotFoundError):
         LOGGER.warning(
-            f"{prefix}checks skipped ⚠️. "
+            f"{prefix}checks skipped. "
             f"Unable to load YOLO11n for AMP checks due to possible Ultralytics package modifications. {warning_msg}"
         )
     except AssertionError:
         LOGGER.warning(
-            f"{prefix}checks failed ❌. Anomalies were detected with AMP on your system that may lead to "
+            f"{prefix}checks failed . Anomalies were detected with AMP on your system that may lead to "
             f"NaN losses or zero-mAP results, so AMP will be disabled during training."
         )
         return False
