@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 """
 Check a model's accuracy on a test or val split of a dataset.
 
@@ -121,7 +121,7 @@ class BaseValidator:
             model.eval()
         else:
             if str(self.args.model).endswith(".yaml"):
-                LOGGER.warning("WARNING ⚠️ validating an untrained model YAML will result in 0 mAP.")
+                LOGGER.warning("WARNING validating an untrained model YAML will result in 0 mAP.")
             callbacks.add_integration_callbacks(self)
             model = AutoBackend(
                 weights=model or self.args.model,
@@ -146,7 +146,7 @@ class BaseValidator:
             elif self.args.task == "classify":
                 self.data = check_cls_dataset(self.args.data, split=self.args.split)
             else:
-                raise FileNotFoundError(emojis(f"Dataset '{self.args.data}' for task={self.args.task} not found ❌"))
+                raise FileNotFoundError(emojis(f"Dataset '{self.args.data}' for task={self.args.task} not found"))
 
             if self.device.type in {"cpu", "mps"}:
                 self.args.workers = 0  # faster CPU val as time dominated by inference, not dataloading
