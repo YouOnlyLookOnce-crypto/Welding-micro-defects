@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 """Functions for estimating the best YOLO batch size to use a fraction of the available CUDA memory in PyTorch."""
 
 import os
@@ -54,10 +54,10 @@ def autobatch(model, imgsz=640, fraction=0.60, batch_size=DEFAULT_CFG.batch, max
     LOGGER.info(f"{prefix}Computing optimal batch size for imgsz={imgsz} at {fraction * 100}% CUDA memory utilization.")
     device = next(model.parameters()).device  # get model device
     if device.type in {"cpu", "mps"}:
-        LOGGER.info(f"{prefix} ⚠️ intended for CUDA devices, using default batch-size {batch_size}")
+        LOGGER.info(f"{prefix} intended for CUDA devices, using default batch-size {batch_size}")
         return batch_size
     if torch.backends.cudnn.benchmark:
-        LOGGER.info(f"{prefix} ⚠️ Requires torch.backends.cudnn.benchmark=False, using default batch-size {batch_size}")
+        LOGGER.info(f"{prefix} Requires torch.backends.cudnn.benchmark=False, using default batch-size {batch_size}")
         return batch_size
 
     # Inspect CUDA memory
@@ -86,13 +86,13 @@ def autobatch(model, imgsz=640, fraction=0.60, batch_size=DEFAULT_CFG.batch, max
                 b = batch_sizes[max(i - 1, 0)]  # select prior safe point
         if b < 1 or b > 1024:  # b outside of safe range
             b = batch_size
-            LOGGER.info(f"{prefix}WARNING ⚠️ CUDA anomaly detected, using default batch-size {batch_size}.")
+            LOGGER.info(f"{prefix}WARNING CUDA anomaly detected, using default batch-size {batch_size}.")
 
         fraction = (np.polyval(p, b) + r + a) / t  # actual fraction predicted
-        LOGGER.info(f"{prefix}Using batch-size {b} for {d} {t * fraction:.2f}G/{t:.2f}G ({fraction * 100:.0f}%) ✅")
+        LOGGER.info(f"{prefix}Using batch-size {b} for {d} {t * fraction:.2f}G/{t:.2f}G ({fraction * 100:.0f}%) ")
         return b
     except Exception as e:
-        LOGGER.warning(f"{prefix}WARNING ⚠️ error detected: {e},  using default batch-size {batch_size}.")
+        LOGGER.warning(f"{prefix}WARNING error detected: {e},  using default batch-size {batch_size}.")
         return batch_size
     finally:
         torch.cuda.empty_cache()
