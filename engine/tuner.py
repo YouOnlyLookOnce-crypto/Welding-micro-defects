@@ -108,7 +108,7 @@ class Tuner:
         callbacks.add_integration_callbacks(self)
         LOGGER.info(
             f"{self.prefix}Initialized Tuner instance with 'tune_dir={self.tune_dir}'\n"
-            f"{self.prefix}💡 Learn about tuning at https://docs.ultralytics.com/guides/hyperparameter-tuning"
+            f"{self.prefix} Learn about tuning at https://docs.ultralytics.com/guides/hyperparameter-tuning"
         )
 
     def _mutate(self, parent="single", n=5, mutation=0.8, sigma=0.2):
@@ -197,7 +197,7 @@ class Tuner:
                 assert return_code == 0, "training failed"
 
             except Exception as e:
-                LOGGER.warning(f"WARNING ❌️ training failure for hyperparameter tuning iteration {i + 1}\n{e}")
+                LOGGER.warning(f"WARNING training failure for hyperparameter tuning iteration {i + 1}\n{e}")
 
             # Save results and mutated_hyp to CSV
             fitness = metrics.get("fitness", 0.0)
@@ -224,7 +224,7 @@ class Tuner:
 
             # Save and print tune results
             header = (
-                f'{self.prefix}{i + 1}/{iterations} iterations complete ✅ ({time.time() - t0:.2f}s)\n'
+                f'{self.prefix}{i + 1}/{iterations} iterations complete ({time.time() - t0:.2f}s)\n'
                 f'{self.prefix}Results saved to {colorstr("bold", self.tune_dir)}\n'
                 f'{self.prefix}Best fitness={fitness[best_idx]} observed at iteration {best_idx + 1}\n'
                 f'{self.prefix}Best fitness metrics are {best_metrics}\n'
