@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 import requests
 
@@ -56,7 +56,7 @@ def login(api_key: str = None, save=True) -> bool:
 
         # Set message based on whether key was provided or retrieved from settings
         log_message = (
-            "New authentication successful ✅" if client.api_key == api_key or not credentials else "Authenticated ✅"
+            "New authentication successful" if client.api_key == api_key or not credentials else "Authenticated"
         )
         LOGGER.info(f"{PREFIX}{log_message}")
 
@@ -79,7 +79,7 @@ def logout():
         ```
     """
     SETTINGS["api_key"] = ""
-    LOGGER.info(f"{PREFIX}logged out ✅. To log in again, use 'yolo login'.")
+    LOGGER.info(f"{PREFIX}logged out. To log in again, use 'yolo login'.")
 
 
 def reset_model(model_id=""):
@@ -105,7 +105,7 @@ def export_model(model_id="", format="torchscript"):
         f"{HUB_API_ROOT}/v1/models/{model_id}/export", json={"format": format}, headers={"x-api-key": Auth().api_key}
     )
     assert r.status_code == 200, f"{PREFIX}{format} export failure {r.status_code} {r.reason}"
-    LOGGER.info(f"{PREFIX}{format} export started ✅")
+    LOGGER.info(f"{PREFIX}{format} export started")
 
 
 def get_export(model_id="", format="torchscript"):
