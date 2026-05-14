@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 
 from ultralytics.utils import LOGGER, SETTINGS, TESTS_RUNNING, colorstr
@@ -47,7 +47,7 @@ def _log_tensorboard_graph(trainer):
         try:
             trainer.model.eval()  # place in .eval() mode to avoid BatchNorm statistics changes
             WRITER.add_graph(torch.jit.trace(de_parallel(trainer.model), im, strict=False), [])
-            LOGGER.info(f"{PREFIX}model graph visualization added ✅")
+            LOGGER.info(f"{PREFIX}model graph visualization added ")
             return
 
         except Exception:
@@ -62,9 +62,9 @@ def _log_tensorboard_graph(trainer):
                         m.format = "torchscript"
                 model(im)  # dry run
                 WRITER.add_graph(torch.jit.trace(model, im, strict=False), [])
-                LOGGER.info(f"{PREFIX}model graph visualization added ✅")
+                LOGGER.info(f"{PREFIX}model graph visualization added ")
             except Exception as e:
-                LOGGER.warning(f"{PREFIX}WARNING ⚠️ TensorBoard graph visualization failure {e}")
+                LOGGER.warning(f"{PREFIX}WARNING TensorBoard graph visualization failure {e}")
 
 
 def on_pretrain_routine_start(trainer):
@@ -75,7 +75,7 @@ def on_pretrain_routine_start(trainer):
             WRITER = SummaryWriter(str(trainer.save_dir))
             LOGGER.info(f"{PREFIX}Start with 'tensorboard --logdir {trainer.save_dir}', view at http://localhost:6006/")
         except Exception as e:
-            LOGGER.warning(f"{PREFIX}WARNING ⚠️ TensorBoard not initialized correctly, not logging this run. {e}")
+            LOGGER.warning(f"{PREFIX}WARNING TensorBoard not initialized correctly, not logging this run. {e}")
 
 
 def on_train_start(trainer):
