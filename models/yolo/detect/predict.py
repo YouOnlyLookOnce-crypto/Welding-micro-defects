@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 from ultralytics.engine.predictor import BasePredictor
 from ultralytics.engine.results import Results
