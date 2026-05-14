@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 from ultralytics.engine.results import Results
 from ultralytics.models.yolo.detect.predict import DetectionPredictor
@@ -26,7 +26,7 @@ class PosePredictor(DetectionPredictor):
         self.args.task = "pose"
         if isinstance(self.args.device, str) and self.args.device.lower() == "mps":
             LOGGER.warning(
-                "WARNING ⚠️ Apple MPS known Pose bug. Recommend 'device=cpu' for Pose models. "
+                "WARNING Apple MPS known Pose bug. Recommend 'device=cpu' for Pose models. "
                 "See https://github.com/ultralytics/ultralytics/issues/4031."
             )
 
