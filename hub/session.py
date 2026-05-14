@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 import shutil
 import threading
@@ -72,7 +72,7 @@ class HUBTrainingSession:
         except Exception:
             if identifier.startswith(f"{HUB_WEB_ROOT}/models/") and not self.client.authenticated:
                 LOGGER.warning(
-                    f"{PREFIX}WARNING ⚠️ Please log in using 'yolo login API_KEY'. "
+                    f"{PREFIX}WARNING Please log in using 'yolo login API_KEY'. "
                     "You can find your API Key at: https://hub.ultralytics.com/settings?tab=api+keys."
                 )
 
@@ -93,11 +93,11 @@ class HUBTrainingSession:
         """Loads an existing model from Ultralytics HUB using the provided model identifier."""
         self.model = self.client.model(model_id)
         if not self.model.data:  # then model does not exist
-            raise ValueError(emojis("❌ The specified HUB model does not exist"))  # TODO: improve error handling
+            raise ValueError(emojis("The specified HUB model does not exist"))  # TODO: improve error handling
 
         self.model_url = f"{HUB_WEB_ROOT}/models/{self.model.id}"
         if self.model.is_trained():
-            print(emojis(f"Loading trained HUB model {self.model_url} 🚀"))
+            print(emojis(f"Loading trained HUB model {self.model_url}"))
             url = self.model.get_weights_url("best")  # download URL with auth
             self.model_file = checks.check_file(url, download_dir=Path(SETTINGS["weights_dir"]) / "hub" / self.model.id)
             return
@@ -105,7 +105,7 @@ class HUBTrainingSession:
         # Set training args and start heartbeats for HUB to monitor agent
         self._set_train_args()
         self.model.start_heartbeat(self.rate_limits["heartbeat"])
-        LOGGER.info(f"{PREFIX}View model at {self.model_url} 🚀")
+        LOGGER.info(f"{PREFIX}View model at {self.model_url}")
 
     def create_model(self, model_args):
         """Initializes a HUB training session with the specified model identifier."""
@@ -141,7 +141,7 @@ class HUBTrainingSession:
         # Start heartbeats for HUB to monitor agent
         self.model.start_heartbeat(self.rate_limits["heartbeat"])
 
-        LOGGER.info(f"{PREFIX}View model at {self.model_url} 🚀")
+        LOGGER.info(f"{PREFIX}View model at {self.model_url}")
 
     @staticmethod
     def _parse_identifier(identifier):
@@ -335,14 +335,14 @@ class HUBTrainingSession:
             last = weights.with_name(f"last{weights.suffix}")
             if final and last.is_file():
                 LOGGER.warning(
-                    f"{PREFIX} WARNING ⚠️ Model 'best.pt' not found, copying 'last.pt' to 'best.pt' and uploading. "
+                    f"{PREFIX} WARNING Model 'best.pt' not found, copying 'last.pt' to 'best.pt' and uploading. "
                     "This often happens when resuming training in transient environments like Google Colab. "
                     "For more reliable training, consider using Ultralytics HUB Cloud. "
                     "Learn more at https://docs.ultralytics.com/hub/cloud-training."
                 )
                 shutil.copy(last, weights)  # copy last.pt to best.pt
             else:
-                LOGGER.warning(f"{PREFIX} WARNING ⚠️ Model upload issue. Missing model {weights}.")
+                LOGGER.warning(f"{PREFIX} WARNING Model upload issue. Missing model {weights}.")
                 return
 
         self.request_queue(
