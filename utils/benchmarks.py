@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 """
 Benchmark a YOLO model formats for speed and accuracy.
 
@@ -91,7 +91,7 @@ def benchmark(
     y = []
     t0 = time.time()
     for i, (name, format, suffix, cpu, gpu) in enumerate(zip(*export_formats().values())):
-        emoji, filename = "❌", None  # export defaults
+        emoji, None  # export defaults
         try:
             # Checks
             if i == 7:  # TF GraphDef
@@ -134,7 +134,7 @@ def benchmark(
                 filename = model.export(imgsz=imgsz, format=format, half=half, int8=int8, device=device, verbose=False)
                 exported_model = YOLO(filename, task=model.task)
                 assert suffix in str(filename), "export failed"
-            emoji = "❎"  # indicates export succeeded
+             # indicates export succeeded
 
             # Predict
             assert model.task != "pose" or i != 7, "GraphDef Pose inference is not supported"
@@ -152,16 +152,16 @@ def benchmark(
             )
             metric, speed = results.results_dict[key], results.speed["inference"]
             fps = round(1000 / (speed + eps), 2)  # frames per second
-            y.append([name, "✅", round(file_size(filename), 1), round(metric, 4), round(speed, 2), fps])
+            y.append([name, round(file_size(filename), 1), round(metric, 4), round(speed, 2), fps])
         except Exception as e:
             if verbose:
                 assert type(e) is AssertionError, f"Benchmark failure for {name}: {e}"
-            LOGGER.warning(f"ERROR ❌️ Benchmark failure for {name}: {e}")
+            LOGGER.warning(f"ERROR Benchmark failure for {name}: {e}")
             y.append([name, emoji, round(file_size(filename), 1), None, None, None])  # mAP, t_inference
 
     # Print results
     check_yolo(device=device)  # print system info
-    df = pd.DataFrame(y, columns=["Format", "Status❔", "Size (MB)", key, "Inference time (ms/im)", "FPS"])
+    df = pd.DataFrame(y, columns=["Format", "Status", "Size (MB)", key, "Inference time (ms/im)", "FPS"])
 
     name = Path(model.ckpt_path).name
     s = f"\nBenchmarks complete for {name} on {data} at imgsz={imgsz} ({time.time() - t0:.2f}s)\n{df}\n"
@@ -273,7 +273,6 @@ class RF100Benchmark:
             >>> benchmark = RF100Benchmark()
             >>> benchmark.evaluate("path/to/data.yaml", "path/to/val_log.txt", "path/to/eval_log.txt", 0)
         """
-        skip_symbols = ["🚀", "⚠️", "💡", "❌"]
         with open(yaml_path) as stream:
             class_names = yaml.safe_load(stream)["names"]
         with open(val_log_file, encoding="utf-8") as f:
