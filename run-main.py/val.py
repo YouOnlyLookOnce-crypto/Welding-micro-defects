@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 import os
 from pathlib import Path
@@ -43,8 +43,8 @@ class DetectionValidator(BaseValidator):
         self.lb = []  # for autolabelling
         if self.args.save_hybrid:
             LOGGER.warning(
-                "WARNING ⚠️ 'save_hybrid=True' will append ground truth to predictions for autolabelling.\n"
-                "WARNING ⚠️ 'save_hybrid=True' will cause incorrect mAP.\n"
+                "WARNING 'save_hybrid=True' will append ground truth to predictions for autolabelling.\n"
+                "WARNING 'save_hybrid=True' will cause incorrect mAP.\n"
             )
 
     def preprocess(self, batch):
@@ -191,7 +191,7 @@ class DetectionValidator(BaseValidator):
         pf = "%22s" + "%11i" * 2 + "%11.3g" * len(self.metrics.keys)  # print format
         LOGGER.info(pf % ("all", self.seen, self.nt_per_class.sum(), *self.metrics.mean_results()))
         if self.nt_per_class.sum() == 0:
-            LOGGER.warning(f"WARNING ⚠️ no labels found in {self.args.task} set, can not compute metrics without labels")
+            LOGGER.warning(f"WARNING no labels found in {self.args.task} set, can not compute metrics without labels")
 
         # Print results per class
         if self.args.verbose and not self.training and self.nc > 1 and len(self.stats):
