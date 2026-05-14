@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 import requests
 
@@ -48,7 +48,7 @@ class Auth:
             if self.api_key == SETTINGS.get("api_key"):
                 # Log that the user is already logged in
                 if verbose:
-                    LOGGER.info(f"{PREFIX}Authenticated ✅")
+                    LOGGER.info(f"{PREFIX}Authenticated")
                 return
             else:
                 # Attempt to authenticate with the provided API key
@@ -66,7 +66,7 @@ class Auth:
             SETTINGS.update({"api_key": self.api_key})
             # Log that the new login was successful
             if verbose:
-                LOGGER.info(f"{PREFIX}New authentication successful ✅")
+                LOGGER.info(f"{PREFIX}New authentication successful")
         elif verbose:
             LOGGER.info(f"{PREFIX}Get API key from {API_KEY_URL} and then run 'yolo login API_KEY'")
 
@@ -84,7 +84,7 @@ class Auth:
             self.api_key = input_key.split("_")[0]  # remove model id if present
             if self.authenticate():
                 return True
-        raise ConnectionError(emojis(f"{PREFIX}Failed to authenticate ❌"))
+        raise ConnectionError(emojis(f"{PREFIX}Failed to authenticate"))
 
     def authenticate(self) -> bool:
         """
@@ -102,7 +102,7 @@ class Auth:
             raise ConnectionError("User has not authenticated locally.")
         except ConnectionError:
             self.id_token = self.api_key = False  # reset invalid
-            LOGGER.warning(f"{PREFIX}Invalid API key ⚠️")
+            LOGGER.warning(f"{PREFIX}Invalid API key")
             return False
 
     def auth_with_cookies(self) -> bool:
