@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 import re
 import shutil
@@ -182,7 +182,7 @@ def unzip_file(file, path=None, exclude=(".DS_Store", "__MACOSX"), exist_ok=Fals
         # Check if destination directory already exists and contains files
         if path.exists() and any(path.iterdir()) and not exist_ok:
             # If it exists and is not empty, return the path without unzipping
-            LOGGER.warning(f"WARNING ⚠️ Skipping {file} unzip as destination directory {path} is not empty.")
+            LOGGER.warning(f"WARNING Skipping {file} unzip as destination directory {path} is not empty.")
             return path
 
         for f in TQDM(files, desc=f"Unzipping {file} to {Path(path).resolve()}...", unit="file", disable=not progress):
@@ -224,7 +224,7 @@ def check_disk_space(url="https://ultralytics.com/assets/coco8.zip", path=Path.c
 
     # Insufficient space
     text = (
-        f"WARNING ⚠️ Insufficient free disk space {free:.1f} GB < {data * sf:.3f} GB required, "
+        f"WARNING Insufficient free disk space {free:.1f} GB < {data * sf:.3f} GB required, "
         f"Please free {data * sf - free:.1f} GB additional disk space and try again."
     )
     if hard:
@@ -262,7 +262,7 @@ def get_google_drive_file_info(link):
         if "quota exceeded" in str(response.content.lower()):
             raise ConnectionError(
                 emojis(
-                    f"❌  Google Drive file download quota exceeded. "
+                    f" Google Drive file download quota exceeded. "
                     f"Please try again later or download this file manually at {link}."
                 )
             )
@@ -359,10 +359,10 @@ def safe_download(
                     f.unlink()  # remove partial downloads
             except Exception as e:
                 if i == 0 and not is_online():
-                    raise ConnectionError(emojis(f"❌  Download failure for {uri}. Environment is not online.")) from e
+                    raise ConnectionError(emojis(f" Download failure for {uri}. Environment is not online.")) from e
                 elif i >= retry:
-                    raise ConnectionError(emojis(f"❌  Download failure for {uri}. Retry limit reached.")) from e
-                LOGGER.warning(f"⚠️ Download failure, retrying {i + 1}/{retry} {uri}...")
+                    raise ConnectionError(emojis(f" Download failure for {uri}. Retry limit reached.")) from e
+                LOGGER.warning(f" Download failure, retrying {i + 1}/{retry} {uri}...")
 
     if unzip and f.exists() and f.suffix in {"", ".zip", ".tar", ".gz"}:
         from zipfile import is_zipfile
@@ -403,7 +403,7 @@ def get_github_assets(repo="ultralytics/assets", version="latest", retry=False):
     if r.status_code != 200 and r.reason != "rate limit exceeded" and retry:  # failed and not 403 rate limit exceeded
         r = requests.get(url)  # try again
     if r.status_code != 200:
-        LOGGER.warning(f"⚠️ GitHub assets check failure for {url}: {r.status_code} {r.reason}")
+        LOGGER.warning(f"GitHub assets check failure for {url}: {r.status_code} {r.reason}")
         return "", []
     data = r.json()
     return data["tag_name"], [x["name"] for x in data["assets"]]  # tag, assets i.e. ['yolov8n.pt', 'yolov8s.pt', ...]
