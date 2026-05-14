@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 """
 Export a YOLO PyTorch model to other formats. TensorFlow exports authored by https://github.com/zldrobit.
 
