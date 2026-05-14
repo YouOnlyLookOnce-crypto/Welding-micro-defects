@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 from ultralytics.utils import LOGGER, SETTINGS, TESTS_RUNNING
 
@@ -81,7 +81,7 @@ def on_pretrain_routine_start(trainer):
             )
         task.connect(vars(trainer.args), name="General")
     except Exception as e:
-        LOGGER.warning(f"WARNING ⚠️ ClearML installed but not initialized correctly, not logging this run. {e}")
+        LOGGER.warning(f"WARNING ClearML installed but not initialized correctly, not logging this run. {e}")
 
 
 def on_train_epoch_end(trainer):
