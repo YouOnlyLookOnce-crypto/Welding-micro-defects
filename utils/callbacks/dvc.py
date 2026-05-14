@@ -1,4 +1,4 @@
-# Ultralytics YOLO 🚀, AGPL-3.0 license
+# Ultralytics YOLO, AGPL-3.0 license
 
 from ultralytics.utils import LOGGER, SETTINGS, TESTS_RUNNING, checks
 
@@ -72,7 +72,7 @@ def on_pretrain_routine_start(trainer):
         live = dvclive.Live(save_dvc_exp=True, cache_images=True)
         LOGGER.info("DVCLive is detected and auto logging is enabled (run 'yolo settings dvc=False' to disable).")
     except Exception as e:
-        LOGGER.warning(f"WARNING ⚠️ DVCLive installed but not initialized correctly, not logging this run. {e}")
+        LOGGER.warning(f"WARNING DVCLive installed but not initialized correctly, not logging this run. {e}")
 
 
 def on_pretrain_routine_end(trainer):
